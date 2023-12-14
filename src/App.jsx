@@ -5,23 +5,23 @@ import { useEffect, useState } from 'react'
 import { getGenreList, getGamesList, getMostPlayed } from './api/api'
 
 function App() {
-  // const [genreList, setGenreList] = useState(null);
+  const [genreList, setGenreList] = useState(null);
   
-  // useEffect(() => {
-  //   const fetchGenreList = async () => {
-  //     try{
-  //       const {upcomingList} = await getMostPlayed();
-  //       console.log(upcomingList)
-  //       // const {genreList} = await getGenreList();
-  //       // console.log(genreList)
-  //       // setGenreList(genreList);
-  //     } catch (error) {
-  //       console.error('Error fetching:', error);
-  //     }
-  //   }
+  useEffect(() => {
+    const fetchGenreList = async () => {
+      try{
+        const {upcomingList} = await getMostPlayed();
+        console.log(upcomingList)
+        // const {genreList} = await getGenreList();
+        // console.log(genreList)
+        // setGenreList(genreList);
+      } catch (error) {
+        console.error('Error fetching:', error);
+      }
+    }
 
-  //   fetchGenreList();
-  // }, [])
+    fetchGenreList();
+  }, [])
   
 
   return (
