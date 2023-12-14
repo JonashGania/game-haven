@@ -5,7 +5,7 @@ import { MdOutlineAddBox } from "react-icons/md";
 
 export default function Header() {
   return (
-    <header className='flex items-center justify-between h-24'>
+    <header className='flex items-center justify-between h-24 mx-4'>
         <div>
             <Link to='/'>
                 <img src="/logo.svg" alt="avatar"/>
