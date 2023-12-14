@@ -21,3 +21,14 @@ export async function getGamesList(genre){
         console.error("Error fetching data:", error)
     }
 }
+
+export async function getMostPlayed(){
+    try{
+        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&ordering=-released`)
+        const upcomingList = response.data;
+
+        return {upcomingList}
+    } catch (error) {
+        console.error('Error fetching data:', error)
+    }
+}
