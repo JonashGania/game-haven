@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Browse from './pages/Browse'
 import { useEffect, useState } from 'react'
-import { getGenreList, getGamesList, getMostPlayed } from './api/api'
+import { getGenreList, getGamesList, getMostPlayed, getNewestGames } from './api/api'
 
 function App() {
   const [genreList, setGenreList] = useState(null);
