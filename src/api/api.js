@@ -38,13 +38,32 @@ export async function getNewestGames(){
     }
 }
 
-export async function getMostPlayed(){
+export async function getStoreTopGames() {
     try{
-        const response = await axios.get(`https://api.rawg.io/api/games/616677?key=${import.meta.env.VITE_API_KEY}`)
-        const upcomingList = response.data;
+        const steam = [];
+        const playStation = [];
+        const xbox = [];
 
-        return {upcomingList}
+        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}`);
+        
+        const topStoreGames = response.data.results;
+
+        topStoreGames.forEach((game) => {
+            const stores = game.stores.map((store) => store.store.name);
+
+            if (stores.includes('Steam')){
+                steam.push(game);
+            }  
+            if (stores.includes('PlayStation Store')){
+                playStation.push(game)
+            }  
+            if (stores.includes('Nintendo Store')){
+                xbox.push(game)
+            }
+        })
+
+        return { steam, playStation, xbox }
     } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching data:", error)
     }
 }
