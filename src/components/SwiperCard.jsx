@@ -8,7 +8,7 @@ export default function SwiperCard({game}) {
             <img 
                 src={game.background_image} 
                 alt={`${game.name} background`} 
-                className='rounded-2xl opacity-80'
+                className='rounded-2xl opacity-80 h-[500px]'
             />
             <div className='absolute bottom-10 left-10'>
                 <p className='text-white text-4xl font-semibold w-[300px] pb-11'>{game.name}</p>
