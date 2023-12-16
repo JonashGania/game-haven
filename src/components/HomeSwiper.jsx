@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { getNewestGames } from '../api/api'
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
 import SwiperCard from './SwiperCard';
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -27,6 +28,9 @@ export default function HomeSwiper() {
             <h1 className='w-[900px] mx-auto text-white text-2xl pb-6 font-semibold'>Newest Games</h1>
             <Swiper
                 className="mySwiper"
+                modules={[Autoplay]}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                speed={1000}
             >
                 {newestGamesList.map((game) => (
                     <SwiperSlide key={game.id} className='flex items-center justify-center'>
