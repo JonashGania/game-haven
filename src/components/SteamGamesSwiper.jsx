@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
-import { getStoreTopGames } from '../api/api';
+import { getSteamTopGames } from '../api/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from './Pagination';
-import SteamGames from './SteamGames';
+import GameSlides from './GameSlides';
 
 import 'swiper/css';
 
@@ -18,8 +18,8 @@ export default function SteamGamesSwiper() {
     useEffect(() => {
         async function fetchSteamGames(){
             try{
-                const { steam } = await getStoreTopGames();
-                setSteamGames(steam.slice(0, 6))
+                const { steam } = await getSteamTopGames();
+                setSteamGames(steam.slice(0, 9))
             } catch(error) {
                 console.error("Error fetching data", error)
             }
@@ -45,7 +45,7 @@ export default function SteamGamesSwiper() {
     const { isLast, isFirst } = slide;
 
     return (
-        <div className='pt-10'>
+        <div>
             <div className='w-full flex justify-between items-center pb-4'>
                 <div className='flex items-center gap-1'>
                     <img src="/steam.svg" alt="steam logo" />
@@ -74,7 +74,7 @@ export default function SteamGamesSwiper() {
                 >
                     {steamGames.map((game) => (
                         <SwiperSlide key={game.id}>
-                            <SteamGames game={game}/>
+                            <GameSlides game={game}/>
                         </SwiperSlide>
                     ))}
                 </Swiper>
