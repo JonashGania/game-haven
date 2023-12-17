@@ -6,3 +6,16 @@
 .active{
     color: #ffffff;
 }
+
+.scrollbar-hide{
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border: 3px solid transparent;
+  }
