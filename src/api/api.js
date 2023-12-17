@@ -31,19 +31,15 @@ export async function getNewestGames(){
         const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&dates=${dateRange}`);
         
         const newestGamesList = response.data.results.slice(0, 5);
-        console.log(newestGamesList)
         return { newestGamesList }
     } catch (error) {
         console.error("Error fetching data:", error)
     }
 }
 
-export async function getStoreTopGames() {
+export async function getSteamTopGames() {
     try{
         const steam = [];
-        const playStation = [];
-        const xbox = [];
-
         const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}`);
         
         const topStoreGames = response.data.results;
@@ -54,15 +50,41 @@ export async function getStoreTopGames() {
             if (stores.includes('Steam')){
                 steam.push(game);
             }  
-            if (stores.includes('PlayStation Store')){
-                playStation.push(game)
-            }  
-            if (stores.includes('Nintendo Store')){
+        })
+
+        return { steam }
+    } catch (error) {
+        console.error("Error fetching data:", error)
+    }
+}
+
+
+export async function getStoreTopGames(){
+    try {
+        const playstation = [];
+        const xbox = [];
+
+        const { formattedCurrentDate, formattedFiveYearsAgo } = formattedDate();
+        const dateRange = `${formattedFiveYearsAgo},${formattedCurrentDate}`;
+
+        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&dates=${dateRange}`);
+        const topPlaystationGames = response.data.results;
+
+        topPlaystationGames.forEach((game) => {
+            const stores = game.stores.map((store) => store.store.name);
+
+            if(stores.includes('PlayStation Store')){
+                playstation.push(game)
+            }
+
+            if(stores.includes('Xbox Store')){
                 xbox.push(game)
             }
         })
 
-        return { steam, playStation, xbox }
+        console.log(xbox);
+
+        return { playstation, xbox }
     } catch (error) {
         console.error("Error fetching data:", error)
     }
