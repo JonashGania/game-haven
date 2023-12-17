@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import HomeSwiper from '../components/HomeSwiper'
 import StoreTopGames from '../components/StoreTopGames'
 
@@ -11,6 +12,7 @@ export default function Home() {
           <HomeSwiper />
           <StoreTopGames />
         </div>
+        <Footer />
     </div>
   )
 }
