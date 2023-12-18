@@ -4,11 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from './Pagination';
 import GameSlides from './GameSlides';
+import SkeletonSlides from './SkeletonSlides';
 
 import 'swiper/css';
 
 export default function PSGamesSwiper() {
   const [psGames, setPsGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [slide, setSlide] = useState({
     isFirst: true,
     isLast: false,
@@ -20,6 +22,7 @@ export default function PSGamesSwiper() {
       try {
         const { playstation } = await getStoreTopGames();
         setPsGames(playstation.slice(0,9));
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data', error)
       }
@@ -64,20 +67,29 @@ export default function PSGamesSwiper() {
       </div>
       <div>
         <Swiper 
-          modules={[Navigation, Pagination]}
-          slidesPerView={3}
-          slidesPerGroup={3}
-          spaceBetween={10}
-          navigation={false}
-          className={'mySwiper'}
-          ref={slideRef}
-          onSlideChange={onSlideChange}
+            modules={[Navigation, Pagination]}
+            slidesPerView={3}
+            slidesPerGroup={3}
+            spaceBetween={10}
+            navigation={false}
+            className={'mySwiper'}
+            ref={slideRef}
+            onSlideChange={onSlideChange}
         >
-          {psGames.map((game) => (
-            <SwiperSlide key={game.id}>
-              <GameSlides game={game}/>
-            </SwiperSlide>
-          ))}
+            {isLoading ? (
+                Array.from({ length: 9 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                        <SkeletonSlides />
+                    </SwiperSlide>
+                ))
+            ) : (
+                psGames.map((game) => (
+                    <SwiperSlide key={game.id}>
+                        <GameSlides game={game}/>
+                    </SwiperSlide>
+                ))
+            )}
+          
 
         </Swiper>
       </div>
