@@ -4,11 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from './Pagination';
 import GameSlides from './GameSlides';
+import SkeletonSlides from './SkeletonSlides';
 
 import 'swiper/css';
 
 export default function SteamGamesSwiper() {
     const [steamGames, setSteamGames] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [slide, setSlide] = useState({
         isFirst: true,
         isLast: false,
@@ -20,6 +22,7 @@ export default function SteamGamesSwiper() {
             try{
                 const { steam } = await getSteamTopGames();
                 setSteamGames(steam.slice(0, 9))
+                setIsLoading(false);
             } catch(error) {
                 console.error("Error fetching data", error)
             }
@@ -72,11 +75,19 @@ export default function SteamGamesSwiper() {
                     ref={slideRef}
                     onSlideChange={onSlideChange}
                 >
-                    {steamGames.map((game) => (
-                        <SwiperSlide key={game.id}>
-                            <GameSlides game={game}/>
-                        </SwiperSlide>
-                    ))}
+                    {isLoading ? (
+                        Array.from({ length: 9 }).map((_, index) => (
+                            <SwiperSlide key={index}>
+                                <SkeletonSlides />
+                            </SwiperSlide>
+                        ))
+                    ) : (
+                        steamGames.map((game) => (
+                            <SwiperSlide key={game.id}>
+                                <GameSlides game={game}/>
+                            </SwiperSlide>
+                        ))
+                    )}
                 </Swiper>
             </div>
         </div>
