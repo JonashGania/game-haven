@@ -42,9 +42,9 @@ export async function getSteamTopGames() {
         const steam = [];
         const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}`);
         
-        const topStoreGames = response.data.results;
+        const topGames = response.data.results;
 
-        topStoreGames.forEach((game) => {
+        topGames.forEach((game) => {
             const stores = game.stores.map((store) => store.store.name);
 
             if (stores.includes('Steam')){
@@ -52,7 +52,7 @@ export async function getSteamTopGames() {
             }  
         })
 
-        return { steam }
+        return { steam, topGames }
     } catch (error) {
         console.error("Error fetching data:", error)
     }
@@ -81,8 +81,6 @@ export async function getStoreTopGames(){
                 xbox.push(game)
             }
         })
-
-        console.log(xbox);
 
         return { playstation, xbox }
     } catch (error) {
