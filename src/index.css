@@ -13,9 +13,13 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
     width: 12px;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar-thumb {
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
     background-color: transparent;
     border: 3px solid transparent;
-  }
+}
+
+.game-grid{
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
