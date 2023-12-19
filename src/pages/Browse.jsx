@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
-import GameLists from '../components/GameLists'
+import GameDetails from '../components/GameDetails'
 import WishList from '../components/WishList'
+import { Outlet } from 'react-router-dom'
 
 export default function Browse() {
 
@@ -12,7 +13,8 @@ export default function Browse() {
       <Header />
       <div className='max-w-6xl mx-auto pt-8 flex gap-4 px-4'>
         <Sidebar />
-        <GameLists />
+        <Outlet />
+        {/* <GameDetails /> */}
       </div>
       <WishList />
     </div>
