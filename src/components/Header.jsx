@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import SearchGames from './SearchBar'
+import WishList from './WishList';
 import { MdOutlineAddBox } from "react-icons/md";
 
 export default function Header() {
+    const [openWishlist, setOpenWishlist] = useState(false);
+
+    const handleOpenWishlist = () => {
+        setOpenWishlist(true);
+    }
+
+    const handleCloseWishlist = () => {
+        setOpenWishlist(false);
+    }
+
   return (
     <header className='sticky top-0 z-20 h-24 bg-[rgb(18,18,18)] w-full'>
         <nav className='flex items-center justify-between py-4 max-w-6xl mx-auto px-4'>
@@ -23,11 +34,12 @@ export default function Header() {
                     </NavLink>
                 </div>
                 <div className='w-[2px] bg-neutral-300 h-6'></div>
-                <div className='cursor-pointer'>
+                <button onClick={handleOpenWishlist}>
                     <MdOutlineAddBox color='rgb(212,212,212)' size='1.8rem'/>
-                </div>
+                </button>
             </div>
         </nav>
+        <WishList isOpen={openWishlist} onClose={handleCloseWishlist}/>
     </header>
   )
 }
