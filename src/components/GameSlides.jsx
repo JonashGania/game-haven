@@ -11,7 +11,11 @@ export default function GameSlides({game}) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <img src={game.background_image} alt={`${game.name} image`} className='w-full h-full rounded-md group' />
+                <img 
+                    src={game.background_image}
+                     alt={`${game.name} image`} 
+                    className='w-full h-full rounded-md group' 
+                />
                 <div className='absolute inset-0 w-full h-full rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
                 {isHovered && (
                     <button className='absolute top-3 right-3 bg-white rounded-[50%]'>
