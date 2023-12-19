@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { getSteamTopGames, getGamesList } from '../api/api'
+import { getSteamTopGames } from '../api/api'
 import Games from './Games';
 import SkeletonGames from './SkeletonGames';
 
@@ -14,7 +14,6 @@ export default function GameLists() {
 
                 const { topGames } = await getSteamTopGames();
                 setGameLists(topGames);
-
                 setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching games', error)
@@ -25,7 +24,7 @@ export default function GameLists() {
     }, [])
 
     return (
-        <div className='flex-1'>
+        <div className='flex-1 pb-10'>
             <h1 className='text-white text-4xl font-extrabold pb-4'>Popular Games</h1>
             <ul className='game-grid grid gap-y-8 gap-4'>
                 {isLoading ? (
