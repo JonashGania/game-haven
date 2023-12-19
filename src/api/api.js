@@ -87,3 +87,14 @@ export async function getStoreTopGames(){
         console.error("Error fetching data:", error)
     }
 }
+
+export async function getGameDetails() {
+    try {
+        const response = await axios.get(`https://api.rawg.io/api/games/12?key=${import.meta.env.VITE_API_KEY}`)
+        const results = response.data;
+
+        return { results };
+    } catch (error) {
+        console.error('Error fetching data', error)
+    }
+}
