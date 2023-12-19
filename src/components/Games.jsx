@@ -22,9 +22,9 @@ export default function Games({ game }) {
                     </button>
                 )}
             </div>
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center gap-2'>
                 <ul className='flex items-center gap-2 pt-3 pb-2'>
-                    {game.genres.map((genre) => (
+                    {game.genres.slice(0,5).map((genre) => (
                         <li key={genre.id} className='text-neutral-400 font-medium text-xs'>{genre.name}</li>
                     ))}
                 </ul>
