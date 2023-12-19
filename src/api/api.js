@@ -15,9 +15,9 @@ export async function getGenreList(){
 export async function getGamesList(genre){
     try{
         const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&genres=${genre}`);
-        const gamesList = response.data;
+        const genreGames = response.data.results;
 
-        console.log(gamesList);
+        return {genreGames}
     } catch (error) {
         console.error("Error fetching data:", error)
     }
