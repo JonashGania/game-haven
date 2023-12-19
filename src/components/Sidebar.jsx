@@ -30,7 +30,10 @@ export default function Sidebar() {
           ))
         ) : (
           genres.map((genre) => (
-            <li key={genre.id} className='flex items-center gap-3 hover:bg-neutral-600 rounded-lg py-3 px-3 cursor-pointer'>
+            <li 
+              key={genre.id} 
+              className='flex items-center gap-3 hover:bg-neutral-600 rounded-lg py-3 px-3 cursor-pointer'
+            >
               <img src={genre.image_background} alt='genre image' className='w-[40px] h-[40px] rounded-lg'/>
               <span className='text-neutral-300'>{genre.name}</span>
             </li>
