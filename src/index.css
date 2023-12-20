@@ -23,3 +23,15 @@
 .game-grid{
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
+
+.swiper-button-prev {
+    color: rgb(224, 224, 224);
+}
+
+.swiper-button-next {
+    color: rgb(224, 224, 224);
+}; 
+
+.swiper-scrollbar-drag {
+    background-color: rgb(224, 224, 224)
+}
