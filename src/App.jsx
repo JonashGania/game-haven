@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Browse from './pages/Browse'
 import GenreGames from './components/GenreGames'
 import GameLists from './components/GameLists'
+import GameDetails from './components/GameDetails'
 import { SkeletonTheme } from 'react-loading-skeleton'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path='/Browse' element={<Browse />} >
             <Route index element={<GameLists />}/>
             <Route path=':genreName' element={<GenreGames />}/>
+            <Route path=':genreName/:gameId' element={<GameDetails />}/>
           </Route>
         </Routes>
       </SkeletonTheme>
