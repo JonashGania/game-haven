@@ -88,10 +88,10 @@ export async function getStoreTopGames(){
     }
 }
 
-export async function getGameDetails() {
+export async function getGameDetails(gameId) {
     try {
-        const response = await axios.get(`https://api.rawg.io/api/games/3498?key=${import.meta.env.VITE_API_KEY}`)
-        const fetch = await axios.get(`https://api.rawg.io/api/games/3498/screenshots?key=${import.meta.env.VITE_API_KEY}`)
+        const response = await axios.get(`https://api.rawg.io/api/games/${gameId}?key=${import.meta.env.VITE_API_KEY}`)
+        const fetch = await axios.get(`https://api.rawg.io/api/games/${gameId}/screenshots?key=${import.meta.env.VITE_API_KEY}`)
         const results = response.data;
         const screenShots = fetch.data.results;
 
