@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import { IoIosAddCircle  } from "react-icons/io";
 
 export default function Games({ game }) {
     const [isHovered, setIsHovered] = useState(false);
+    const primaryGenre = game.genres[0];
+
     return (
         <li key={game.id} className='w-full'>
-            <div 
-                className='w-full h-[170px] relative group'
+            <Link 
+                to={`/Browse/${primaryGenre}/${game.id}`}
+                className='w-full h-[170px] block relative group cursor-pointer'
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -21,7 +25,7 @@ export default function Games({ game }) {
                         <IoIosAddCircle size='1.3rem'/>
                     </button>
                 )}
-            </div>
+            </Link>
             <div className='flex justify-between items-center gap-2'>
                 <ul className='flex items-center gap-2 pt-3 pb-2'>
                     {game.genres.slice(0,5).map((genre) => (
