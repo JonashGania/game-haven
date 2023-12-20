@@ -14,7 +14,7 @@ export default function Browse() {
       <div className='max-w-6xl mx-auto pt-8 flex gap-4 px-4'>
         <Sidebar />
         <Outlet />
-        {/* <GameDetails /> */}
+        <GameDetails />
       </div>
       <WishList />
     </div>
