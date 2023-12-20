@@ -51,7 +51,7 @@ export async function getSteamTopGames() {
                 steam.push(game);
             }  
         })
-
+        console.log(topGames);
         return { steam, topGames }
     } catch (error) {
         console.error("Error fetching data:", error)
@@ -90,10 +90,12 @@ export async function getStoreTopGames(){
 
 export async function getGameDetails() {
     try {
-        const response = await axios.get(`https://api.rawg.io/api/games/12?key=${import.meta.env.VITE_API_KEY}`)
+        const response = await axios.get(`https://api.rawg.io/api/games/3498?key=${import.meta.env.VITE_API_KEY}`)
+        const fetch = await axios.get(`https://api.rawg.io/api/games/3498/screenshots?key=${import.meta.env.VITE_API_KEY}`)
         const results = response.data;
+        const screenShots = fetch.data.results;
 
-        return { results };
+        return { results, screenShots };
     } catch (error) {
         console.error('Error fetching data', error)
     }
