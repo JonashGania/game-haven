@@ -24,7 +24,7 @@ export default function Sidebar() {
   }, [])
 
   const handleGenreNavigate = (genreName) => {
-    navigate(`/Browse/${genreName}`);
+    navigate(`/browse/${genreName}`);
   }
 
   return (
