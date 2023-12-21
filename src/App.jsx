@@ -13,11 +13,11 @@ function App() {
       <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/Browse' element={<Browse />} >
+          <Route path='/browse' element={<Browse />} >
             <Route index element={<GameLists />}/>
             <Route path=':genreName' element={<GenreGames />}/>
-            <Route path=':genreName/:gameId' element={<GameDetails />}/>
           </Route>
+          <Route path='/browse/:genreName/:gameId' element={<GameDetails />}/>
         </Routes>
       </SkeletonTheme>
     </>
