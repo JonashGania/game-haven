@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { IoIosAddCircle  } from "react-icons/io";
-
+import { Link } from 'react-router-dom';
 
 export default function SwiperCard({game}) {
+    const primaryGenre = game.genres[0].slug;
+
     return (
-        <div className='w-[900px] relative rounded-lg' key={game.id}>
+        <Link 
+            to={`/Browse/${primaryGenre}/${game.id}`}
+            className='w-[900px] relative rounded-lg' 
+            key={game.id}>
             <img 
                 src={game.background_image} 
                 alt={`${game.name} background`} 
@@ -17,6 +22,6 @@ export default function SwiperCard({game}) {
                     <p className='text-xs font-medium'>ADD TO WISHLIST</p>
                 </button>
             </div>
-        </div>
+        </Link>
     )
 }
