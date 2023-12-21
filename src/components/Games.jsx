@@ -4,7 +4,7 @@ import { IoIosAddCircle  } from "react-icons/io";
 
 export default function Games({ game }) {
     const [isHovered, setIsHovered] = useState(false);
-    const primaryGenre = game.genres[0];
+    const primaryGenre = game.genres[0].slug;
 
     return (
         <li key={game.id} className='w-full'>
