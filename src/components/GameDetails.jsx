@@ -7,6 +7,7 @@ import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, isValid, parseISO } from "date-fns";
+import { useWishlist } from '../context/WishlistContext';
 import StarRatings from 'react-star-ratings';
 import SkeletonGameDetails from './SkeletonGameDetails';
 import 'swiper/css';
@@ -20,6 +21,7 @@ export default function GameDetails() {
     const [paragraph, setParagraph] = useState(null);
     const [screenshots, setScreenshots] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { addToWishlist } = useWishlist();
     const { gameId } = useParams();
     const navigate = useNavigate();
     const releasedDate = isValid(new Date(game.released))
@@ -42,6 +44,10 @@ export default function GameDetails() {
         fetchGameDetails()
     }, [gameId])
 
+
+    const handleAddToWishlist = (game) => {
+        addToWishlist(game)
+    }
 
     return (
         <div className='w-full min-h-screen bg-[rgb(18,18,18)] pb-32'>
@@ -113,7 +119,10 @@ export default function GameDetails() {
                                     <span className='text-neutral-400'>Metacritic</span>
                                     <h3 className='text-neutral-200 text-sm'>{game.metacritic !== null ? game.metacritic : 'N/A'}</h3>
                                 </div>
-                                <button className='py-1 flex items-center gap-2 justify-center border border-neutral-200 rounded-sm hover:bg-[rgba(255,255,255,0.2)]'>
+                                <button 
+                                    className='py-1 flex items-center gap-2 justify-center border border-neutral-200 rounded-sm hover:bg-[rgba(255,255,255,0.2)]'
+                                    onClick={() => handleAddToWishlist(game)}
+                                >
                                     <IoIosAddCircle size='1.3rem' color='white'/>
                                     <p className='text-xs uppercase text-neutral-200 font-medium'>Add to wishlist</p>
                                 </button>
