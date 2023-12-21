@@ -4,6 +4,7 @@ import Browse from './pages/Browse'
 import GenreGames from './components/GenreGames'
 import GameLists from './components/GameLists'
 import GameDetails from './components/GameDetails'
+import ErrorPage from './components/ErrorPage'
 import { SkeletonTheme } from 'react-loading-skeleton'
 
 function App() {
@@ -12,12 +13,13 @@ function App() {
     <>
       <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
         <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/browse' element={<Browse />} >
-            <Route index element={<GameLists />}/>
-            <Route path=':genreName' element={<GenreGames />}/>
+          <Route path='/' element={<Home />} />
+          <Route path='/browse' element={<Browse />}>
+            <Route index element={<GameLists />} />
+            <Route path=':genreName' element={<GenreGames />} />
           </Route>
-          <Route path='/browse/:genreName/:gameId' element={<GameDetails />}/>
+          <Route path='/browse/:genreName/:gameId' element={<GameDetails />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </SkeletonTheme>
     </>
