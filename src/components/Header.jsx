@@ -29,7 +29,7 @@ export default function Header() {
                     <NavLink to='/' className='text-neutral-300'>
                         Home
                     </NavLink>
-                    <NavLink to='/Browse' className='text-neutral-300'>
+                    <NavLink to='/browse' className='text-neutral-300'>
                         Browse
                     </NavLink>
                 </div>
