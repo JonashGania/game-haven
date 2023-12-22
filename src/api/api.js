@@ -51,7 +51,6 @@ export async function getSteamTopGames() {
                 steam.push(game);
             }  
         })
-        console.log(topGames);
         return { steam, topGames }
     } catch (error) {
         console.error("Error fetching data:", error)
