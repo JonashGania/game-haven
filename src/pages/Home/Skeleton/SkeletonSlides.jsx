@@ -1,0 +1,17 @@
+import React from 'react'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
+export default function SkeletonSlides() {
+  return (
+    <div className='w-[290px]'>
+        <Skeleton count={1} height='157px' width='290px' className='rounded-md'/>
+        <div className='flex items-center gap-4'>
+            <Skeleton count={1} height='10px' width='30px'/>
+            <Skeleton count={1} height='10px' width='30px'/>
+            <Skeleton count={1} height='10px' width='30px'/>
+        </div>
+        <Skeleton count={1} height='10px' width='100px'/>
+    </div>
+  )
+}

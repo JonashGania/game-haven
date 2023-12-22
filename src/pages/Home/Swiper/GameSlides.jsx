@@ -1,0 +1,59 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useWishlist } from '../../../context/WishlistContext';
+
+export default function GameSlides({game}) {
+    const [isHovered, setIsHovered] = useState(false);
+    const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
+    const primaryGenre = game.genres[0].slug;
+
+    const gameInWishlist = Boolean(wishlist[game.id]);
+
+    const handleToggleWishlist = (game) => {
+        if (gameInWishlist){
+            removeFromWishlist(game.id)
+        } else {
+            addToWishlist(game)
+        }
+    }
+
+    return (
+        <li 
+            className='w-[290px]' 
+            key={game.id}>
+            <div 
+                className='h-[157px] w-full relative group'
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <Link to={`/browse/${primaryGenre}/${game.id}`}>
+                    <img 
+                        src={game.background_image}
+                        alt={`${game.name} image`} 
+                        className='w-full h-full rounded-md group' 
+                    />
+                    <div className='absolute inset-0 w-full h-full rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
+                </Link>
+                
+                {isHovered && (
+                    <button 
+                        className='absolute top-3 right-3 bg-white py-[2px] px-[2px] rounded-[50%]'
+                        onClick={() => handleToggleWishlist(game)}
+                    >
+                        {gameInWishlist ? (
+                            <img src="/check.svg" alt="check" />
+                        ) : (
+                            <img src="/add.svg" alt="add" />
+                        )}
+                    </button>
+                )}
+            </div>
+            <div className='flex items-center gap-2'>
+                {game.genres.map((genre) => (
+                    <p key={genre.id} className='pt-3 pb-2 text-neutral-400 font-medium text-xs'>{genre.name}</p>
+                ))}
+            </div>
+            <span className='text-white text-base'>{game.name}</span>
+        </li>
+    )
+}
