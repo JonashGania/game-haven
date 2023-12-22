@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { getGameDetails } from '../api/api'
-import { IoIosAddCircle  } from "react-icons/io";
+import { IoIosAddCircle, IoIosCheckmarkCircle } from "react-icons/io";
 import { cutParagraph } from '../utils/cutParagraph';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
@@ -21,12 +21,13 @@ export default function GameDetails() {
     const [paragraph, setParagraph] = useState(null);
     const [screenshots, setScreenshots] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { addToWishlist } = useWishlist();
+    const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
     const { gameId } = useParams();
     const navigate = useNavigate();
     const releasedDate = isValid(new Date(game.released))
     ? format(parseISO(game.released), "MM/dd/yyyy")
     : 'N/A';
+    const gameInWishlist = Boolean(wishlist[game.id]);
 
     useEffect(() => {
         async function fetchGameDetails() {
@@ -45,8 +46,12 @@ export default function GameDetails() {
     }, [gameId])
 
 
-    const handleAddToWishlist = (game) => {
-        addToWishlist(game)
+    const handleToggleWishlist = (game) => {
+        if (gameInWishlist){
+            removeFromWishlist(game.id)
+        } else {
+            addToWishlist(game)
+        }
     }
 
     return (
@@ -121,10 +126,19 @@ export default function GameDetails() {
                                 </div>
                                 <button 
                                     className='py-1 flex items-center gap-2 justify-center border border-neutral-200 rounded-sm hover:bg-[rgba(255,255,255,0.2)]'
-                                    onClick={() => handleAddToWishlist(game)}
+                                    onClick={() => handleToggleWishlist(game)}
                                 >
-                                    <IoIosAddCircle size='1.3rem' color='white'/>
-                                    <p className='text-xs uppercase text-neutral-200 font-medium'>Add to wishlist</p>
+                                    {gameInWishlist ? (
+                                        <>
+                                            <IoIosCheckmarkCircle size='1.3rem' color='white'/>
+                                            <p className='text-sm text-white font-medium'>In Wishlist</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                             <IoIosAddCircle size='1.3rem' color='white'/>
+                                            <p className='text-sm text-white font-medium'>Add to Wishlist</p>
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </div>
