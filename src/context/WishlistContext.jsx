@@ -10,6 +10,7 @@ export function useWishlist(){
 
 export function WishlistProvider({ children }){
     const [wishlist, setWishlist] = useState({});
+    const numberOfGames = Object.keys(wishlist).length;
 
     useEffect(() => {
         const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || {};
@@ -28,12 +29,18 @@ export function WishlistProvider({ children }){
         setWishlist((prevWishlist) => {
             const updateWishlist = {...prevWishlist};
             delete updateWishlist[gameId];
+            localStorage.setItem('wishlist', JSON.stringify(updateWishlist));
             return updateWishlist;
         })
     }
 
+    const clearWishlist = () => {
+        setWishlist({})
+        localStorage.removeItem('wishlist');
+    }
+
     return (
-        <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist}}>
+        <WishlistContext.Provider value={{ wishlist, numberOfGames, addToWishlist, removeFromWishlist, clearWishlist}}>
             {children}
         </WishlistContext.Provider>
     )
