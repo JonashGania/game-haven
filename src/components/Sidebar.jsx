@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { getGenreList } from '../api/api'
-import SkeletonSidebar from './SkeletonSidebar';
+import SkeletonSidebar from '../pages/Browse/Skeleton/SkeletonSidebar';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
