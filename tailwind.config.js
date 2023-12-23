@@ -16,6 +16,8 @@ export default {
       'mobile': '640px',
       'tablet': '768px',
       'sidebar': '880px',
+      'laptop': '1024px',
+      'desktop': '1280px',
     }
   },
   plugins: [],
