@@ -55,9 +55,9 @@ export default function GameDetails() {
     }
 
     return (
-        <div className='w-full min-h-screen bg-[rgb(18,18,18)] pb-32'>
+        <div className='w-full min-h-screen bg-[rgb(18,18,18)] pb-32 overflow-hidden'>
             <div className='max-w-5xl mx-auto'>
-                <div className='h-24 flex items-center sticky top-0 bg-[rgb(18,18,18)] z-20'>
+                <div className='h-24 flex items-center sticky top-0 bg-[rgb(18,18,18)] z-20 px-4'>
                     <button 
                         className='flex items-center gap-4'
                         onClick={() => {
@@ -71,8 +71,8 @@ export default function GameDetails() {
                 {isLoading ? (
                     <SkeletonGameDetails />
                 ) : (
-                    <div>
-                        <h1 className='text-white text-3xl font-medium'>{game.name}</h1>
+                    <div className='w-full px-4'>
+                        <h1 className='text-white text-xl mobile:text-3xl font-medium'>{game.name}</h1>
                         <div className='flex items-center gap-2'>
                             <StarRatings
                                 rating={game.rating}
@@ -84,8 +84,8 @@ export default function GameDetails() {
                             />
                             <span className='py-1 px-2 rounded-md bg-[rgb(54,54,54)] text-neutral-400 text-sm'>{game.rating}</span>
                         </div>
-                        <div className='flex gap-8 pt-4'>
-                            <div className='w-[650px]'>
+                        <div className='flex justify-center laptop:gap-8 gap-4 pt-4 w-full max-w-5xl flex-wrap sidebar:flex-nowrap'>
+                            <div className='w-full sidebar:w-[500px] laptop:w-[650px] transitiion-all duration-300 ease-in'>
                                 <Swiper 
                                     className="mySwiper"
                                     modules={[Pagination, Navigation, Scrollbar]}
@@ -95,15 +95,15 @@ export default function GameDetails() {
                                     navigation={true}
                                 >
                                     {screenshots.map((shots) => (
-                                        <SwiperSlide key={shots.id}>
-                                            <img src={shots.image} alt="screenshot" className='w-full h-[350px] rounded-xl'/>
+                                        <SwiperSlide key={shots.id} className='w-100%'>
+                                            <img src={shots.image} alt="screenshot" className='w-full rounded-xl'/>
                                         </SwiperSlide>
                                     ))}
 
                                 </Swiper>
                                 <p className='text-neutral-200 text-sm pt-4'>{paragraph}</p>
                             </div>
-                            <div className='flex-1 px-8 flex flex-col gap-3'>
+                            <div className='sidebar:min-w-[310px] min-w-[400px] px-8 flex flex-col gap-3 pt-8 sidebar:pt-0'>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Developer</span>
                                     {game.developers?.slice(0,1).map((name) => (
