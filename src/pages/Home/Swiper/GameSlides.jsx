@@ -19,10 +19,10 @@ export default function GameSlides({game}) {
 
     return (
         <li 
-            className='w-[290px]' 
+            className='w-full' 
             key={game.id}>
             <div 
-                className='h-[157px] w-full relative group'
+                className='w-full relative group'
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
@@ -30,9 +30,9 @@ export default function GameSlides({game}) {
                     <img 
                         src={game.background_image}
                         alt={`${game.name} image`} 
-                        className='w-full h-full rounded-md group' 
+                        className='w-full max-h-[300px] mobile:max-h-[241.03px] tablet:max-h-[158.98px] rounded-md group' 
                     />
-                    <div className='absolute inset-0 w-full h-full rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
+                    <div className='absolute inset-0 w-full max-h-[341.44] mobile:max-h-[241.03px] tablet:max-h-[158.98px] rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
                 </Link>
                 
                 {isHovered && (
