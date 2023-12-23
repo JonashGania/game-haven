@@ -20,7 +20,7 @@ export default function Games({ game }) {
     return (
         <li key={game.id} className='w-full'>
             <div           
-                className='w-full h-[170px] block relative group cursor-pointer'
+                className='w-full block relative group cursor-pointer'
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
