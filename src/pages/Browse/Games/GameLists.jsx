@@ -24,7 +24,7 @@ export default function GameLists() {
     }, [])
 
     return (
-        <div className='flex-1 pb-10'>
+        <div className='flex-1 pb-10 px-8 mobile:px-0 transition-all duration-200 ease-in'>
             <h1 className='text-white text-4xl font-extrabold pb-4'>Popular Games</h1>
             <ul className='game-grid grid gap-y-8 gap-4'>
                 {isLoading ? (
