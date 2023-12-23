@@ -3,7 +3,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function SkeletonGameDetails() {
   return (
-    <div>
+    <div className='px-4'>
         <Skeleton count={1} height='35px' width='300px'/>
         <div className='flex items-center gap-1 pb-4'>
             <Skeleton circle count={1} height='20px' width='20px'/>
