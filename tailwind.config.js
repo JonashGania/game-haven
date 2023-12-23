@@ -12,6 +12,11 @@ export default {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
     },
+    screens: {
+      'mobile': '640px',
+      'tablet': '768px',
+      'sidebar': '880px',
+    }
   },
   plugins: [],
 }
