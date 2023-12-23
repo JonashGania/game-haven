@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 export default function SearchGames() {
   return (
     <div   
-        className='w-[500px] flex items-center gap-3 relative'>   
+        className='w-[500px] tablet:flex hidden items-center gap-3 relative'>   
         <div className='absolute left-3'>
             <IoIosSearch 
                 color='rgb(161,161,170)' 
