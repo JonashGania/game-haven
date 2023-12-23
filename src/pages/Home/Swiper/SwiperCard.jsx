@@ -24,13 +24,13 @@ export default function SwiperCard({game}) {
                 <img 
                     src={game.background_image} 
                     alt={`${game.name} background`} 
-                    className='rounded-2xl opacity-80 h-[500px]'
+                    className='rounded-2xl opacity-80'
                 />
             </Link>
             <div className='absolute bottom-10 left-10'>
-                <p className='text-white text-4xl font-semibold w-[300px] pb-11'>{game.name}</p>
+                <p className='text-white text-xl tablet:text-4xl font-semibold w-[300px] pb-3 tablet:pb-11 transition-all duration-300 ease-in'>{game.name}</p>
                 <button 
-                    className='bg-white py-5 px-3 rounded-md flex items-center gap-2'
+                    className='bg-white transition-all duration-200 ease-in py-3 tablet:py-5 px-3 tablet:px-3 rounded-md flex items-center gap-2'
                     onClick={() => handleToggleWishlist(game)}
                 >   
                     {gameInWishlist ? (
