@@ -28,7 +28,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='scrollbar-hide w-[18%] overflow-y-auto max-h-[82vh] sticky top-[8rem]'>
+    <div className='scrollbar-hide w-[18%] overflow-y-auto overflow-x-hidden max-h-[82vh] sticky top-[8rem] hidden sidebar:block'>
       <h1 className='text-white font-extrabold text-2xl pb-2 pl-4'>Genres</h1>
       <ul className='flex flex-col'>
         {isLoading ? (
