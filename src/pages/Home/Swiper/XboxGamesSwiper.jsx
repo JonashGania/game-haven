@@ -52,12 +52,12 @@ export default function XboxGamesSwiper() {
             <div className='w-full flex justify-between items-center pb-4'>
                 <div className='flex items-center gap-1'>
                     <img src="/xbox.svg" alt="xbox logo" />
-                    <h2 className='text-white text-xl pr-7'>Xbox</h2>
+                    <h2 className='text-white text-base mobile:text-xl pr:5 mobile:pr-7'>Xbox</h2>
                     <a 
                         href="https://www.xbox.com/en-us/games?xr=shellnav" 
                         target='_blank' 
                         rel='noreferrer'
-                        className='text-white py-1 px-3 rounded-sm text-sm border border-white  hover:border-neutral-500'
+                        className='text-white ml-3 mobile:ml-0 py-1 px-3 rounded-sm text-xs mobile:text-sm border border-white  hover:border-neutral-500'
                     >
                         Visit Xbox store
                     </a>
@@ -67,13 +67,25 @@ export default function XboxGamesSwiper() {
             <div>
                 <Swiper 
                     modules={[Navigation, Pagination]}
-                    slidesPerView={3}
-                    slidesPerGroup={3}
                     spaceBetween={10}
                     navigation={false}
                     className={'mySwiper'}
                     ref={slideRef}
                     onSlideChange={onSlideChange}
+                    breakpoints={{
+                        600: {
+                          slidesPerView: 1,
+                          slidesPerGroup: 1,
+                        },
+                        640: {
+                          slidesPerView: 2,
+                          slidesPerGroup: 2,
+                        },
+                        900: {
+                          slidesPerView: 3,
+                          slidesPerGroup: 3,
+                        }
+                      }}
                 >
                     {isLoading ? (
                         Array.from({ length: 9 }).map((_, index) => (
