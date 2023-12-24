@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import SearchGames from './SearchBar'
 import WishList from './WishList';
+import Dropdown from './Dropdown';
 import { MdOutlineAddBox } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
+
 
 export default function Header() {
     const [openWishlist, setOpenWishlist] = useState(false);
@@ -25,6 +27,9 @@ export default function Header() {
                 </Link>
             </div>
             <SearchGames />
+            <div className='block tablet:hidden'>
+                <Dropdown />
+            </div>
             <div className='flex items-center gap-3 tablet:gap-5'>
                 <div className='hidden tablet:flex items-center gap-9'>
                     <NavLink to='/' className='text-neutral-300'>
