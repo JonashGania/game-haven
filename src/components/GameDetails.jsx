@@ -8,6 +8,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, isValid, parseISO } from "date-fns";
 import { useWishlist } from '../context/WishlistContext';
+import GameDescription from './ReadMore';
 import StarRatings from 'react-star-ratings';
 import SkeletonGameDetails from './SkeletonGameDetails';
 import 'swiper/css';
@@ -72,18 +73,21 @@ export default function GameDetails() {
                     <SkeletonGameDetails />
                 ) : (
                     <div className='w-full px-4'>
-                        <h1 className='text-white text-xl mobile:text-3xl font-medium'>{game.name}</h1>
-                        <div className='flex items-center gap-2'>
-                            <StarRatings
-                                rating={game.rating}
-                                starRatedColor="white"
-                                starEmptyColor="rgb(74,74,74)"
-                                starDimension='20px'
-                                starSpacing='1px'
-                                numberOfStars={5}
-                            />
-                            <span className='py-1 px-2 rounded-md bg-[rgb(54,54,54)] text-neutral-400 text-sm'>{game.rating}</span>
+                        <div className=''>
+                            <h1 className='text-white text-xl mobile:text-3xl font-medium'>{game.name}</h1>
+                            <div className='flex items-center gap-2'>
+                                <StarRatings
+                                    rating={game.rating}
+                                    starRatedColor="white"
+                                    starEmptyColor="rgb(74,74,74)"
+                                    starDimension='20px'
+                                    starSpacing='1px'
+                                    numberOfStars={5}
+                                />
+                                <span className='py-1 px-2 rounded-md bg-[rgb(54,54,54)] text-neutral-400 text-sm'>{game.rating}</span>
+                            </div>
                         </div>
+
                         <div className='flex justify-center laptop:gap-8 gap-4 pt-4 w-full max-w-5xl flex-wrap sidebar:flex-nowrap'>
                             <div className='w-full sidebar:w-[500px] laptop:w-[650px] transitiion-all duration-300 ease-in'>
                                 <Swiper 
@@ -101,9 +105,9 @@ export default function GameDetails() {
                                     ))}
 
                                 </Swiper>
-                                <p className='text-neutral-200 text-sm pt-4'>{paragraph}</p>
+                                <GameDescription descrition={paragraph}/>
                             </div>
-                            <div className='sidebar:min-w-[310px] min-w-[400px] px-8 flex flex-col gap-3 pt-8 sidebar:pt-0'>
+                            <div className='sidebar:min-w-[310px] mobile:min-w-[400px] min-w-[300px] px-4 mobile:px-8 flex flex-col gap-3 pt-8 sidebar:pt-0'>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Developer</span>
                                     {game.developers?.slice(0,1).map((name) => (
