@@ -14,13 +14,13 @@ export default function WishList({ isOpen, onClose }) {
             onClick={onClose}
         >
             <div 
-                className={`scrollbar-hide w-[350px] overflow-y-auto  h-full bg-neutral-800 right-0 fixed px-8 py-4 transition-all duration-200 ease-in  ${isOpen ? 'translate-x-0' : 'translate-x-40'}`}
+                className={`scrollbar-hide mobile:w-[350px] w-[200px] overflow-y-auto  h-full bg-neutral-800 right-0 fixed mobile:px-8 px-2 py-4 transition-all duration-200 ease-in  ${isOpen ? 'translate-x-0' : 'translate-x-40'}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className='flex justify-between items-center'>
-                    <h1 className='text-white font-semibold text-2xl'>{`${numberOfGames} Games`}</h1>
+                    <h1 className='text-white font-semibold mobile:text-2xl text-lg'>{`${numberOfGames} Games`}</h1>
                     <button 
-                        className=' text-red-500 py-1 px-3 border border-red-500 rounded-md'
+                        className=' text-red-500 py-1 px-3 border border-red-500 rounded-md text-xs mobile:text-base'
                         onClick={handleClearWishlist}
                     >
                         Clear
@@ -29,13 +29,13 @@ export default function WishList({ isOpen, onClose }) {
 
                 <ul className='pt-4 flex flex-col gap-4'>
                     {Object.values(wishlist).map((game) => (
-                        <Link to={`/browse/${game.genres[0].slug}/${game.id}`} key={game.id} className='flex items-center gap-4 py-2 px-2 bg-[rgb(54,54,54)] rounded-md'>
-                            <img src={game.background_image} alt={`${game.name} image`} className='w-[100px] h-[60px] rounded-md'/>
+                        <Link to={`/browse/${game.genres[0].slug}/${game.id}`} key={game.id} className='flex items-center mobile:gap-4 gap-2 py-2 px-2 bg-[rgb(54,54,54)] rounded-md'>
+                            <img src={game.background_image} alt={`${game.name} image`} className='w-[80px] mobile:w-[100px] rounded-md'/>
                             <div className='text-ellipsis whitespace-nowrap overflow-hidden text-white'>
-                                <span className='text-white'>{game.name}</span>
+                                <span className='text-white text-xs mobile:text-base'>{game.name}</span>
                                 <h3 
                                     onClick={() => removeFromWishlist(game.id)}
-                                    className='text-neutral-400 pt-3 text-sm cursor-pointer underline hover:no-underline w-16'
+                                    className='text-neutral-400 mobile:pt-3 pt-1 mobile:text-sm text-xs cursor-pointer underline hover:no-underline w-16'
                                 >
                                     Remove
                                 </h3>
