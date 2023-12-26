@@ -3,6 +3,7 @@ import { getGamesList } from '../../../api/api'
 import { useParams } from 'react-router-dom';
 import Games from './Games';
 import SkeletonGames from '../Skeleton/SkeletonGames';
+import FilterGenre from '../../../components/FilterGenre';
 
 
 export default function GenreGames() {
@@ -26,7 +27,10 @@ export default function GenreGames() {
     }, [genreName])
     return (
         <div className='flex-1 pb-10'>
-            <h1 className='text-white text-4xl font-extrabold pb-4 uppercase'>{`${genreName}`}</h1>
+            <div className='block sidebar:hidden pb-4'>
+                <FilterGenre />
+            </div>
+            <h1 className='text-white mobile:text-4xl text-xl font-medium mobile:font-extrabold pb-4 uppercase'>{`${genreName}`}</h1>
             <ul className='game-grid grid gap-y-8 gap-4'>
                 {isLoading ? (
                     Array.from({ length: 20 }).map((_, index) => (
