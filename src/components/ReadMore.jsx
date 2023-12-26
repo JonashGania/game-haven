@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+import PropTypes from 'prop-types';
 
 function ReadMore({ children }) {
     const [isReadMore, setIsReadMore] = useState(true);
@@ -51,4 +52,8 @@ export default function GameDescription({ descrition }){
             </ReadMore>
         </div>
     )
+}
+
+ReadMore.propTypes = {
+    children: PropTypes.string.isRequired,
 }
