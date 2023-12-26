@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { getGenreList } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import SkeletonFilterGenre from './SkeletonFilterGenre';
+import PropTypes from 'prop-types';
 
 
 function Genre({ handleClose }){
@@ -91,4 +92,9 @@ export default function FilterGenre() {
             {isOpen && <Genre handleClose={handleClose}/>}
         </div>
     )
+}
+
+
+Genre.propTypes = {
+    handleClose: PropTypes.func.isRequired,
 }
