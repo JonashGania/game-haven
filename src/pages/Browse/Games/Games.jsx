@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../../context/WishlistContext';
+import PropTypes from 'prop-types';
 
 export default function Games({ game }) {
     const [isHovered, setIsHovered] = useState(false);
@@ -56,4 +57,9 @@ export default function Games({ game }) {
             <h1 className='text-white'>{game.name}</h1>
         </li>
     )
+}
+
+
+Games.propTypes = {
+    game: PropTypes.object.isRequired,
 }
