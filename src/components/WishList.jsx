@@ -1,5 +1,6 @@
 import { useWishlist } from '../context/WishlistContext'
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function WishList({ isOpen, onClose }) {
     const { wishlist, removeFromWishlist, clearWishlist, numberOfGames } = useWishlist();
@@ -58,4 +59,10 @@ export default function WishList({ isOpen, onClose }) {
             </div>
         </div>
     )
+}
+
+
+WishList.propTypes = {
+    isOpen: PropTypes.bool,
+    onClose: PropTypes.func,
 }
