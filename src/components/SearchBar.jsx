@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { searchQuery } from '../api/api';
 import SearchFilterResults from './SearchFilterResults';
+import SkeletonSearchFilter from './SkeletonSearchFilter';
 
 export default function SearchGames() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function searchGames(){
             try {
+                setIsLoading(true)
                 const { results } = await searchQuery(query);
                 setResults(results || []);
+                setIsLoading(false);
             } 
             catch (error) {
                 console.error('Error fetching data', error);
@@ -41,7 +45,12 @@ export default function SearchGames() {
                 className='bg-[rgb(54,54,54)] focus:bg-white py-3 px-4 pl-11 outline-none w-full rounded-3xl text-sm focus:text-black text-neutral-400 placeholder:text-zinc-400 placeholder:text-sm'
                 onChange={(e) => setQuery(e.target.value)}
             />
-            <SearchFilterResults results={results}/>
+            {isLoading ? (
+                query && <SkeletonSearchFilter/>
+            ) : (
+                query && <SearchFilterResults results={results}/>
+            )}
+
         </div>
     )
 }
