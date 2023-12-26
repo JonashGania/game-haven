@@ -1,5 +1,5 @@
-import React from 'react'
 import { FaChevronRight, FaChevronLeft  } from "react-icons/fa6";
+import PropTypes from 'prop-types';
 
 
 export default function PaginationButton({ isFirst, isLast, handlePrevious, handleNext }) {
@@ -19,4 +19,11 @@ export default function PaginationButton({ isFirst, isLast, handlePrevious, hand
         </button>
     </div>
   )
+}
+
+PaginationButton.propTypes = {
+    isFirst: PropTypes.bool.isRequired,
+    isLast: PropTypes.bool.isRequired,
+    handlePrevious: PropTypes.func.isRequired,
+    handleNext: PropTypes.func.isRequired,
 }
