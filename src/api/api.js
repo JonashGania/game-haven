@@ -99,3 +99,14 @@ export async function getGameDetails(gameId) {
         console.error('Error fetching data', error)
     }
 }
+
+export async function searchQuery(query){
+    try {
+        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&search=${query}`);
+        const results = response.data.results;
+
+        return { results }
+    } catch (error) {
+        console.error('Erro fetching data', error)
+    }
+}
