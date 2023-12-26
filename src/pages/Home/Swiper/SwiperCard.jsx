@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../../context/WishlistContext';
+import PropTypes from 'prop-types';
 
 export default function SwiperCard({game}) {
     const primaryGenre = game.genres[0].slug;
@@ -48,4 +49,8 @@ export default function SwiperCard({game}) {
             </div>
         </li>
     )
+}
+
+SwiperCard.propTypes = {
+    game: PropTypes.object.isRequired,
 }
