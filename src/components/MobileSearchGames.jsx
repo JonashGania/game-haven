@@ -2,8 +2,8 @@ import { IoIosSearch } from "react-icons/io";
 import { searchQuery } from '../api/api';
 import { useEffect, useState } from "react";
 import SearchFilterResults from "./SearchFilterResults";
-import SkeletonSearchFilter from "./SkeletonSearchFilter";
-
+import SkeletonSearchFilter from "./Skeleton/SkeletonSearchFilter";
+import PropTypes from 'prop-types';
 
 export default function MobileSearchGames({ handleCloseSearch }) {
     const [query, setQuery] = useState('');
@@ -68,4 +68,9 @@ export default function MobileSearchGames({ handleCloseSearch }) {
             )}
         </div>
     )
+}
+
+
+MobileSearchGames.propTypes = {
+    handleCloseSearch: PropTypes.func.isRequired,
 }
