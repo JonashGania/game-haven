@@ -10,7 +10,7 @@ import { format, isValid, parseISO } from "date-fns";
 import { useWishlist } from '../context/WishlistContext';
 import GameDescription from './ReadMore';
 import StarRatings from 'react-star-ratings';
-import SkeletonGameDetails from './SkeletonGameDetails';
+import SkeletonGameDetails from './Skeleton/SkeletonGameDetails';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
