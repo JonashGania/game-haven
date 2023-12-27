@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { searchQuery } from '../api/api';
 import SearchFilterResults from './SearchFilterResults';
-import SkeletonSearchFilter from './SkeletonSearchFilter';
+import SkeletonSearchFilter from "./Skeleton/SkeletonSearchFilter";
 
 export default function SearchGames() {
     const [query, setQuery] = useState('');
