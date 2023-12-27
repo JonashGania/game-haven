@@ -46,11 +46,18 @@ export default function SearchGames() {
                 onChange={(e) => setQuery(e.target.value)}
             />
             {isLoading ? (
-                query && <SkeletonSearchFilter/>
+                query && (
+                    <div className='scrollbar-hide absolute bg-[rgb(32,32,32)] w-full h-[250px] overflow-y-auto px-4 top-14 rounded-md'>
+                        <SkeletonSearchFilter/>
+                    </div>
+                )
             ) : (
-                query && <SearchFilterResults results={results}/>
+                query && (
+                    <div className='scrollbar-hide absolute bg-[rgb(32,32,32)] w-full h-[250px] overflow-y-auto px-4 top-14 rounded-md'>
+                        <SearchFilterResults results={results}/>
+                    </div>
+                )
             )}
-
         </div>
     )
 }
