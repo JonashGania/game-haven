@@ -3,7 +3,7 @@ import { CgMenuGridO } from "react-icons/cg";
 import { IoMdClose } from "react-icons/io";
 import { getGenreList } from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import SkeletonFilterGenre from './SkeletonFilterGenre';
+import SkeletonFilterGenre from './Skeleton/SkeletonFilterGenre';
 import PropTypes from 'prop-types';
 
 
