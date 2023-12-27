@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { MdOutlineAddBox } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
@@ -28,6 +28,14 @@ export default function Header() {
     const handleCloseSearch = () => {
         setOpenSearch(false)
     }
+
+    useEffect(() => {
+        document.body.style.overflow = openSearch ? 'hidden' : 'auto';
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
+    }, [openSearch])
 
     return (
         <header className='sticky top-0 z-20 h-24 bg-[rgb(18,18,18)] w-full'>
