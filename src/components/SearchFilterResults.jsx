@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import PropTypes from 'prop-types';
 
 export default function SearchFilterResults({ results }) {
   return (
@@ -15,4 +16,8 @@ export default function SearchFilterResults({ results }) {
         ))}
     </ul>
   )
+}
+
+SearchFilterResults.propTypes = {
+  results: PropTypes.array.isRequired,
 }
