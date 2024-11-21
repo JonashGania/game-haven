@@ -7,8 +7,8 @@ export default function Footer() {
         <div className='max-w-6xl mx-auto py-10 flex flex-wrap gap-4 items-center justify-center tablet:justify-between'>
             <div className='px-4'>
                 <img src="logo.svg" alt="logo" />
-                <p className='max-w-[450px] text-neutral-300 font-light text-sm pl-3'>This project is not a real Game store, Game Haven is just personal project of mine. 
-                    All the games in here are not for sale. This project just simply display games on different genres using Rawg API. Enjoy!
+                <p className='max-w-[450px] text-neutral-300 font-light text-sm pl-3'>This project is not a real Game store, Game Haven is just personal project of mine and 
+                    all the games in here are not for sale. This project just simply display games on different genres using Rawg API. Enjoy!
                 </p>
             </div>
             <div className='px-8'>
