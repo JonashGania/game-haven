@@ -16,7 +16,7 @@ export default function Home() {
           <div className='flex flex-col gap-10'>
             <SteamGamesSwiper />
             <PSGamesSwiper />
-            <XboxGamesSwiper />
+            <XboxGamesSwiper /> 
           </div>
         </div>
         <Footer />

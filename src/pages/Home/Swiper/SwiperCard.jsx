@@ -21,11 +21,11 @@ export default function SwiperCard({game}) {
             className='w-[900px] relative rounded-lg' 
             key={game.id}
         >
-            <Link to={`/browse/${primaryGenre}/${game.id}`}>
+            <Link to={`/browse/${primaryGenre}/${game.slug}`}>
                 <img 
                     src={game.background_image} 
                     alt={`${game.name} background`} 
-                    className='rounded-2xl opacity-80'
+                    className='rounded-2xl opacity-80 object-cover max-h-[485px] w-full'
                 />
             </Link>
             <div className='absolute mobile:bottom-10 bottom-5 mobile:left-10 left-5 transition-all duration-200 ease-in'>

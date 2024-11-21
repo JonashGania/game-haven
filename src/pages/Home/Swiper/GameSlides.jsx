@@ -27,11 +27,11 @@ export default function GameSlides({game}) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <Link to={`/browse/${primaryGenre}/${game.id}`}>
+                <Link to={`/browse/${primaryGenre}/${game.slug}`}>
                     <img 
                         src={game.background_image}
-                        alt={`${game.name} image`} 
-                        className='w-full max-h-[300px] mobile:max-h-[241.03px] tablet:max-h-[158.98px] rounded-md group' 
+                        alt={`${game.slug} image`} 
+                        className='w-full max-h-[300px] h-[285px] mobile:max-h-[241.03px] object-cover tablet:max-h-[158.98px] rounded-md group' 
                     />
                     <div className='absolute inset-0 w-full max-h-[341.44] mobile:max-h-[241.03px] tablet:max-h-[158.98px] rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
                 </Link>
@@ -51,7 +51,7 @@ export default function GameSlides({game}) {
             </div>
             <div className='flex items-center gap-2'>
                 {game.genres.map((genre) => (
-                    <p key={genre.id} className='pt-3 pb-2 text-neutral-400 font-medium text-xs'>{genre.name}</p>
+                    <span key={genre.id} className='pt-3 pb-2 text-neutral-400 font-medium text-xs'>{genre.name}</span>
                 ))}
             </div>
             <span className='text-white text-base'>{game.name}</span>

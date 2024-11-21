@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import { getStoreTopGames } from '../../../api/api'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -18,16 +18,18 @@ export default function XboxGamesSwiper() {
     const slideRef = useRef();
 
     useEffect(() => {
-        async function fetchGames(){
-            try{
-                const { xbox } = await getStoreTopGames();
-                setXboxGames(xbox.slice(0, 9))
+        const loadXboxGames = async () => {
+            try {
+                const games = await getStoreTopGames(2, 12);
+                setXboxGames(games)
+            } catch (error) {
+                console.error('Failed to fetch games', error);
+            } finally {
                 setIsLoading(false);
-            } catch(error) {
-                console.error("Error fetching data", error)
             }
         }
-        fetchGames();
+
+        loadXboxGames();
     }, [])
 
     const handleNext = () => {
@@ -45,8 +47,6 @@ export default function XboxGamesSwiper() {
         })
     }
 
-    const { isLast, isFirst } = slide;
-
     return (
         <div>
             <div className='w-full flex justify-between items-center pb-4'>
@@ -62,7 +62,7 @@ export default function XboxGamesSwiper() {
                         Visit Xbox store
                     </a>
                 </div>
-                <PaginationButton isFirst={isFirst} isLast={isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
+                <PaginationButton isFirst={slide.isFirst} isLast={slide.isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
             </div>
             <div>
                 <Swiper 
@@ -94,7 +94,7 @@ export default function XboxGamesSwiper() {
                             </SwiperSlide>
                         ))
                     ) : (
-                        xboxGames.map((game) => (
+                        xboxGames.slice(0,12).map((game) => (
                             <SwiperSlide key={game.id}>
                                 <GameSlides game={game}/>
                             </SwiperSlide>

@@ -5,7 +5,6 @@ import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
 import GameSlides from './GameSlides';
 import SkeletonSlides from '../Skeleton/SkeletonSlides';
-
 import 'swiper/css';
 
 export default function PSGamesSwiper() {
@@ -18,17 +17,17 @@ export default function PSGamesSwiper() {
   const slideRef = useRef();
 
   useEffect(() => {
-    async function fetchGames(){
+    const loadPsGames = async() => {
       try {
-        const { playstation } = await getStoreTopGames();
-        setPsGames(playstation.slice(0,9));
-        setIsLoading(false);
+        const games = await getStoreTopGames(3, 12);
+        setPsGames(games)
       } catch (error) {
-        console.error('Error fetching data', error)
+        console.error('Failed to fetch games', error)
+      } finally {
+        setIsLoading(false);
       }
     }
-
-    fetchGames();
+    loadPsGames();
   }, [])
 
   const handleNext = () => {
@@ -46,8 +45,6 @@ export default function PSGamesSwiper() {
       })
   }
 
-  const { isLast, isFirst } = slide;
-
   return (
     <div>
       <div className='w-full flex justify-between items-center pb-4'>
@@ -63,7 +60,7 @@ export default function PSGamesSwiper() {
                 Visit PlayStation
             </a>
         </div>
-        <PaginationButton isFirst={isFirst} isLast={isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
+        <PaginationButton isFirst={slide.isFirst} isLast={slide.isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
       </div>
       <div>
         <Swiper 
@@ -95,7 +92,7 @@ export default function PSGamesSwiper() {
                     </SwiperSlide>
                 ))
             ) : (
-                psGames.map((game) => (
+                psGames.slice(0, 12).map((game) => (
                     <SwiperSlide key={game.id}>
                         <GameSlides game={game}/>
                     </SwiperSlide>

@@ -29,7 +29,7 @@ export default function Games({ game }) {
                     <img 
                         src={game.background_image} 
                         alt={`${game.name} background`} 
-                        className='w-full h-full rounded-md group'
+                        className='w-full object-cover rounded-md group max-h-[300px] mobile:h-[285px] tablet:max-h-[158.98px]'
                     />
                      <div className='absolute inset-0 w-full h-full rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
                 </Link>
@@ -47,7 +47,7 @@ export default function Games({ game }) {
                 )}
             </div>
             <div className='flex justify-between items-center gap-2'>
-                <ul className='flex items-center gap-2 pt-3 pb-2'>
+                <ul className='flex flex-wrap items-center gap-2 pt-3 pb-2'>
                     {game.genres.slice(0,5).map((genre) => (
                         <li key={genre.id} className='text-neutral-400 font-medium text-xs'>{genre.name}</li>
                     ))}

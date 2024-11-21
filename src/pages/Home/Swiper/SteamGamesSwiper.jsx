@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react'
-import { getSteamTopGames } from '../../../api/api';
+import {useState, useEffect, useRef} from 'react'
+import { getStoreTopGames } from '../../../api/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
@@ -18,16 +18,18 @@ export default function SteamGamesSwiper() {
     const slideRef = useRef();
 
     useEffect(() => {
-        async function fetchSteamGames(){
-            try{
-                const { steam } = await getSteamTopGames();
-                setSteamGames(steam.slice(0, 9))
+        const loadSteamGames = async () => {
+            try {
+                const games = await getStoreTopGames(1, 12);
+                setSteamGames(games);
+            } catch (error) {
+                console.error('Failed to fetch games', error);
+            } finally {
                 setIsLoading(false);
-            } catch(error) {
-                console.error("Error fetching data", error)
             }
         }
-        fetchSteamGames();
+
+        loadSteamGames();
     }, [])
 
     const handleNext = () => {
@@ -45,8 +47,6 @@ export default function SteamGamesSwiper() {
         })
     }
 
-    const { isLast, isFirst } = slide;
-
     return (
         <div>
             <div className='w-full flex justify-between items-center pb-4'>
@@ -62,7 +62,7 @@ export default function SteamGamesSwiper() {
                         Visit Steam store
                     </a>
                 </div>
-                <PaginationButton isFirst={isFirst} isLast={isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
+                <PaginationButton isFirst={slide.isFirst} isLast={slide.isLast} handlePrevious={handlePrevious} handleNext={handleNext}/>
             </div>
             <div>
                 <Swiper 
@@ -94,7 +94,7 @@ export default function SteamGamesSwiper() {
                             </SwiperSlide>
                         ))
                     ) : (
-                        steamGames.map((game) => (
+                        steamGames.slice(0, 12).map((game) => (
                             <SwiperSlide key={game.id}>
                                 <GameSlides game={game}/>
                             </SwiperSlide>
