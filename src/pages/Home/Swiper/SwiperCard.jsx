@@ -18,7 +18,7 @@ export default function SwiperCard({game}) {
 
     return (
         <li 
-            className='w-[900px] relative rounded-lg' 
+            className='w-[900px] relative rounded-2xl' 
             key={game.id}
         >
             <Link to={`/browse/${primaryGenre}/${game.slug}`}>
