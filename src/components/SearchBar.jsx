@@ -1,34 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { searchQuery } from '../api/api';
+import { useQuery } from '@tanstack/react-query';
 import SearchFilterResults from './SearchFilterResults';
 import SkeletonSearchFilter from "./Skeleton/SkeletonSearchFilter";
 
 export default function SearchGames() {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        async function searchGames(){
-            try {
-                setIsLoading(true)
-                const { results } = await searchQuery(query);
-                setResults(results || []);
-                setIsLoading(false);
-            } 
-            catch (error) {
-                console.error('Error fetching data', error);
-            }
-        }
+    const { data, isLoading, error} = useQuery({
+        queryKey: ['searchData', query],
+        queryFn: () => searchQuery(query),
+        enabled: !!query
+    })
 
-        if(query){
-            searchGames();
-        } else {
-            setResults([]);
-        }
-
-    }, [query])
 
     return (
         <div   
@@ -45,18 +30,16 @@ export default function SearchGames() {
                 className='bg-[rgb(54,54,54)] focus:bg-white py-3 px-4 pl-11 outline-none w-full rounded-3xl text-sm focus:text-black text-neutral-400 placeholder:text-zinc-400 placeholder:text-sm'
                 onChange={(e) => setQuery(e.target.value)}
             />
-            {isLoading ? (
-                query && (
-                    <div className='scrollbar-hide absolute bg-[rgb(32,32,32)] w-full h-[250px] overflow-y-auto px-4 top-14 rounded-md'>
+            {query && (
+                <div className='scrollbar-hide absolute bg-[rgb(32,32,32)] w-full h-[250px] overflow-y-auto px-4 top-14 rounded-md'>
+                    {error ? (
+                        <div>Error fetching results: {error.message}</div>
+                    ): isLoading ? (
                         <SkeletonSearchFilter/>
-                    </div>
-                )
-            ) : (
-                query && (
-                    <div className='scrollbar-hide absolute bg-[rgb(32,32,32)] w-full h-[250px] overflow-y-auto px-4 top-14 rounded-md'>
-                        <SearchFilterResults results={results}/>
-                    </div>
-                )
+                    ): (
+                        <SearchFilterResults results={data}/>
+                    )}
+                </div>
             )}
         </div>
     )
