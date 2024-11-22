@@ -3,15 +3,13 @@ import { formattedDate } from "../utils/formattedDate";
 
 const BASE_URL = 'https://api.rawg.io/api'
 
-export async function getGamesList(genre){
-    try{
-        const response = await axios.get(`https://api.rawg.io/api/games?&genres=${genre}&key=${import.meta.env.VITE_API_KEY}`);
-        const genreGames = response.data.results;
+export const fetchGames = async (genre) => {
+    const url = genre
+        ? `${BASE_URL}/games?&genres=${genre}&key=${import.meta.env.VITE_API_KEY}`
+        : `${BASE_URL}/games?page_size=20&key=${import.meta.env.VITE_API_KEY}`
 
-        return genreGames
-    } catch (error) {
-        console.error("Error fetching data:", error)
-    }
+    const response = await axios.get(url);
+    return response.data.results;
 }
 
 export async function getNewestGames(){
@@ -19,10 +17,9 @@ export async function getNewestGames(){
         const { formattedCurrentDate, formattedLastThirtyDays } = formattedDate();
         const dateRange = `${formattedLastThirtyDays},${formattedCurrentDate}`;
 
-        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&dates=${dateRange}`);
+        const response = await axios.get(`https://api.rawg.io/api/games?page_size=5&dates=${dateRange}&key=${import.meta.env.VITE_API_KEY}`);
         
-        const newestGamesList = response.data.results.slice(0, 5);
-        return { newestGamesList }
+        return response.data.results
     } catch (error) {
         console.error("Error fetching data:", error)
     }
@@ -38,11 +35,16 @@ export const getStoreTopGames = async (storeId, pageSize) => {
 export async function getGameDetails(gameSlug) {
     try {
         const response = await axios.get(`https://api.rawg.io/api/games/${gameSlug}?key=${import.meta.env.VITE_API_KEY}`)
-        const fetch = await axios.get(`https://api.rawg.io/api/games/${gameSlug}/screenshots?key=${import.meta.env.VITE_API_KEY}`)
-        const results = response.data;
-        const screenShots = fetch.data.results;
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data', error)
+    }
+}
 
-        return { results, screenShots };
+export async function getScreenshots(gameSlug) {
+    try {
+        const response = await axios.get(`https://api.rawg.io/api/games/${gameSlug}/screenshots?key=${import.meta.env.VITE_API_KEY}`)
+        return response.data.results;
     } catch (error) {
         console.error('Error fetching data', error)
     }
@@ -50,10 +52,8 @@ export async function getGameDetails(gameSlug) {
 
 export async function searchQuery(query){
     try {
-        const response = await axios.get(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_API_KEY}&search=${query}`);
-        const results = response.data.results;
-
-        return { results }
+        const response = await axios.get(`https://api.rawg.io/api/games?search=${query}&key=${import.meta.env.VITE_API_KEY}`);
+        return response.data.results
     } catch (error) {
         console.error('Erro fetching data', error)
     }
