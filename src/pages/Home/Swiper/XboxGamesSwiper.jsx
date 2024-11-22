@@ -8,29 +8,29 @@ import SkeletonSlides from '../Skeleton/SkeletonSlides';
 
 import 'swiper/css';
 
-export default function XboxGamesSwiper() {
-    const [xboxGames, setXboxGames] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+export default function XboxGamesSwiper({ xboxGames, isLoading }) {
+    // const [xboxGames, setXboxGames] = useState([]);
+    // const [isLoading, setIsLoading] = useState(true);
     const [slide, setSlide] = useState({
         isFirst: true,
         isLast: false,
     })
     const slideRef = useRef();
 
-    useEffect(() => {
-        const loadXboxGames = async () => {
-            try {
-                const games = await getStoreTopGames(2, 12);
-                setXboxGames(games)
-            } catch (error) {
-                console.error('Failed to fetch games', error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    // useEffect(() => {
+    //     const loadXboxGames = async () => {
+    //         try {
+    //             const games = await getStoreTopGames(2, 12);
+    //             setXboxGames(games)
+    //         } catch (error) {
+    //             console.error('Failed to fetch games', error);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
 
-        loadXboxGames();
-    }, [])
+    //     loadXboxGames();
+    // }, [])
 
     const handleNext = () => {
         slideRef.current.swiper.slideNext();
@@ -94,7 +94,7 @@ export default function XboxGamesSwiper() {
                             </SwiperSlide>
                         ))
                     ) : (
-                        xboxGames.slice(0,12).map((game) => (
+                        xboxGames?.map((game) => (
                             <SwiperSlide key={game.id}>
                                 <GameSlides game={game}/>
                             </SwiperSlide>
