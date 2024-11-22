@@ -52,7 +52,7 @@ export default function Games({ game }) {
                         <li key={genre.id} className='text-neutral-400 font-medium text-xs'>{genre.name}</li>
                     ))}
                 </ul>
-                <span className='text-green-400 border border-neutral-500 px-1 py-1 rounded-sm text-xs'>{game.metacritic}</span>
+                <span className='text-green-400 border border-neutral-500 px-1 py-1 rounded-sm text-xs'>{game.metacritic ? game.metacritic : 'N/A'}</span>
             </div>
             <h1 className='text-white'>{game.name}</h1>
         </li>
