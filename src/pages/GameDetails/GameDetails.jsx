@@ -1,13 +1,12 @@
-import {useEffect, useState} from 'react'
-import { getGameDetails } from '../../api/api'
+import { getGameDetails, getScreenshots } from '../../api/api'
 import { IoIosAddCircle, IoIosCheckmarkCircle } from "react-icons/io";
-import { cutParagraph } from '../../utils/cutParagraph';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, isValid, parseISO } from "date-fns";
 import { useWishlist } from '../../context/WishlistContext';
+import { useQuery } from '@tanstack/react-query';
 import GameDescription from '../../components/ReadMore';
 import StarRatings from 'react-star-ratings';
 import SkeletonGameDetails from '../../components/Skeleton/SkeletonGameDetails';
@@ -18,34 +17,29 @@ import 'swiper/css/scrollbar';
 
 
 export default function GameDetailsPage() {
-    const [game, setGame] = useState({});
-    const [paragraph, setParagraph] = useState(null);
-    const [screenshots, setScreenshots] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
     const { gameSlug } = useParams();
     const navigate = useNavigate();
-    const releasedDate = isValid(new Date(game.released))
-    ? format(parseISO(game.released), "MM/dd/yyyy")
+  
+    const fetchGameDetails = async () => {
+        const [game, screenshots] = await Promise.all([
+            getGameDetails(gameSlug),
+            getScreenshots(gameSlug),
+        ])
+
+        return { game, screenshots }
+    }
+
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['gameDetails', gameSlug],
+        queryFn: fetchGameDetails,
+    })
+
+    const gameInWishlist = Boolean(wishlist[data?.game.id]);
+
+    const releasedDate = isValid(new Date(data?.game.released))
+    ? format(parseISO(data?.game.released), "MM/dd/yyyy")
     : 'N/A';
-    const gameInWishlist = Boolean(wishlist[game.id]);
-
-    useEffect(() => {
-        async function fetchGameDetails() {
-            try {
-                const { results, screenShots } = await getGameDetails(gameSlug);
-                setGame(results)
-                setParagraph(cutParagraph(results.description_raw))
-                setScreenshots(screenShots)
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error fetching data', error);
-            }
-        }
-
-        fetchGameDetails()
-    }, [gameSlug])
-
 
     const handleToggleWishlist = (game) => {
         if (gameInWishlist){
@@ -55,6 +49,8 @@ export default function GameDetailsPage() {
         }
     }
 
+
+    console.log(data?.game.description_raw);
     return (
         <div className='w-full min-h-screen bg-[rgb(18,18,18)] pb-32 overflow-hidden'>
             <div className='max-w-5xl mx-auto'>
@@ -69,22 +65,24 @@ export default function GameDetailsPage() {
                         <span className='text-neutral-400 font-semibold'>Back</span>
                     </button>
                 </div>
-                {isLoading ? (
+                {error ? (
+                    <div>Error fetching results: {error.message}</div>
+                ) : isLoading ? (
                     <SkeletonGameDetails />
-                ) : (
+                ) : data && (
                     <div className='w-full px-4'>
                         <div className=''>
-                            <h1 className='text-white text-xl mobile:text-3xl font-medium'>{game.name}</h1>
+                            <h1 className='text-white text-xl mobile:text-3xl font-medium'>{data.game.name}</h1>
                             <div className='flex items-center gap-2'>
                                 <StarRatings
-                                    rating={game.rating}
+                                    rating={data.game.rating}
                                     starRatedColor="white"
                                     starEmptyColor="rgb(74,74,74)"
                                     starDimension='20px'
                                     starSpacing='1px'
                                     numberOfStars={5}
                                 />
-                                <span className='py-1 px-2 rounded-md bg-[rgb(54,54,54)] text-neutral-400 text-sm'>{game.rating}</span>
+                                <span className='py-1 px-2 rounded-md bg-[rgb(54,54,54)] text-neutral-400 text-sm'>{data.game.rating}</span>
                             </div>
                         </div>
 
@@ -98,26 +96,26 @@ export default function GameDetailsPage() {
                                     }}
                                     navigation={true}
                                 >
-                                    {screenshots.map((shots) => (
+                                    {data.screenshots.map((shots) => (
                                         <SwiperSlide key={shots.id} className='w-100%'>
-                                            <img src={shots.image} alt="screenshot" className='w-full rounded-xl'/>
+                                            <img src={shots.image} alt="screenshot" className='w-full rounded-xl max-h-[365px] object-cover'/>
                                         </SwiperSlide>
                                     ))}
 
                                 </Swiper>
-                                <GameDescription descrition={paragraph}/>
+                                <GameDescription description={data.game.description_raw}/>
                             </div>
                             <div className='sidebar:min-w-[310px] mobile:min-w-[400px] min-w-[300px] px-4 mobile:px-8 flex flex-col gap-3 pt-8 sidebar:pt-0'>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Developer</span>
-                                    {game.developers?.slice(0,1).map((name) => (
-                                        <h3 className='text-neutral-200 text-sm' key={name.id}>{name.name}</h3>
+                                    {data.game.developers?.slice(0,1).map((name) => (
+                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis' key={name.id}>{name.name}</h3>
                                     ))}
                                 </div>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Publisher</span>
-                                    {game.publishers?.slice(0,1).map((name) => (
-                                        <h3 className='text-neutral-200 text-sm' key={name.id}>{name.name}</h3>
+                                    {data.game.publishers?.slice(0,1).map((name) => (
+                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis' key={name.id}>{name.name}</h3>
                                     ))}
                                 </div>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
@@ -126,11 +124,11 @@ export default function GameDetailsPage() {
                                 </div>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Metacritic</span>
-                                    <h3 className='text-neutral-200 text-sm'>{game.metacritic !== null ? game.metacritic : 'N/A'}</h3>
+                                    <h3 className='text-neutral-200 text-sm'>{data.game.metacritic !== null ? data.game.metacritic : 'N/A'}</h3>
                                 </div>
                                 <button 
                                     className='py-1 flex items-center gap-2 justify-center border border-neutral-200 rounded-sm hover:bg-[rgba(255,255,255,0.2)]'
-                                    onClick={() => handleToggleWishlist(game)}
+                                    onClick={() => handleToggleWishlist(data.game)}
                                 >
                                     {gameInWishlist ? (
                                         <>
@@ -139,7 +137,7 @@ export default function GameDetailsPage() {
                                         </>
                                     ) : (
                                         <>
-                                             <IoIosAddCircle size='1.3rem' color='white'/>
+                                            <IoIosAddCircle size='1.3rem' color='white'/>
                                             <p className='text-sm text-white font-medium'>Add to Wishlist</p>
                                         </>
                                     )}
@@ -148,7 +146,6 @@ export default function GameDetailsPage() {
                         </div>
                     </div>
                 )}
-                
             </div>
         </div>
     )
