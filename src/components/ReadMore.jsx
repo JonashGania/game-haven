@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+import { cutParagraph } from '../utils/cutParagraph';
 import PropTypes from 'prop-types';
 
-function ReadMore({ children }) {
+export default function GameDescription({ description = "" }) {
     const [isReadMore, setIsReadMore] = useState(true);
-    const text = children;
+    const text = cutParagraph(description);
 
     const toggleReadMore = () => {
         setIsReadMore(!isReadMore);
@@ -13,7 +14,7 @@ function ReadMore({ children }) {
     return (
         <div className='flex justify-center items-center flex-col'>
             <p className='text-neutral-200 text-sm pt-4'>
-                {isReadMore ? text.slice(0, 400) : text}   
+                {isReadMore ? text.slice(0, 400) : description}   
             </p>
             <div className='relative w-full flex flex-col pt-2'>
                 <button
@@ -42,18 +43,4 @@ function ReadMore({ children }) {
 
         </div>
     )
-}
-
-export default function GameDescription({ descrition }){
-    return(
-        <div>
-            <ReadMore >
-                {descrition}
-            </ReadMore>
-        </div>
-    )
-}
-
-ReadMore.propTypes = {
-    children: PropTypes.string.isRequired,
 }
