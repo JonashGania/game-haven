@@ -7,28 +7,28 @@ import GameSlides from './GameSlides';
 import SkeletonSlides from '../Skeleton/SkeletonSlides';
 import 'swiper/css';
 
-export default function PSGamesSwiper() {
-  const [psGames, setPsGames] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+export default function PSGamesSwiper({ psGames, isLoading }) {
+  // const [psGames, setPsGames] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   const [slide, setSlide] = useState({
     isFirst: true,
     isLast: false,
   })
   const slideRef = useRef();
 
-  useEffect(() => {
-    const loadPsGames = async() => {
-      try {
-        const games = await getStoreTopGames(3, 12);
-        setPsGames(games)
-      } catch (error) {
-        console.error('Failed to fetch games', error)
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    loadPsGames();
-  }, [])
+  // useEffect(() => {
+  //   const loadPsGames = async() => {
+  //     try {
+  //       const games = await getStoreTopGames(3, 12);
+  //       setPsGames(games)
+  //     } catch (error) {
+  //       console.error('Failed to fetch games', error)
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   loadPsGames();
+  // }, [])
 
   const handleNext = () => {
     slideRef.current.swiper.slideNext();
@@ -92,7 +92,7 @@ export default function PSGamesSwiper() {
                     </SwiperSlide>
                 ))
             ) : (
-                psGames.slice(0, 12).map((game) => (
+                psGames?.map((game) => (
                     <SwiperSlide key={game.id}>
                         <GameSlides game={game}/>
                     </SwiperSlide>
