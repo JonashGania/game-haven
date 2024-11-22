@@ -8,29 +8,29 @@ import SkeletonSlides from '../Skeleton/SkeletonSlides';
 
 import 'swiper/css';
 
-export default function SteamGamesSwiper() {
-    const [steamGames, setSteamGames] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+export default function SteamGamesSwiper({ steamGames, isLoading }) {
+    // const [steamGames, setSteamGames] = useState([]);
+    // const [isLoading, setIsLoading] = useState(true);
     const [slide, setSlide] = useState({
         isFirst: true,
         isLast: false,
     })
     const slideRef = useRef();
 
-    useEffect(() => {
-        const loadSteamGames = async () => {
-            try {
-                const games = await getStoreTopGames(1, 12);
-                setSteamGames(games);
-            } catch (error) {
-                console.error('Failed to fetch games', error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+    // useEffect(() => {
+    //     const loadSteamGames = async () => {
+    //         try {
+    //             const games = await getStoreTopGames(1, 12);
+    //             setSteamGames(games);
+    //         } catch (error) {
+    //             console.error('Failed to fetch games', error);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
 
-        loadSteamGames();
-    }, [])
+    //     loadSteamGames();
+    // }, [])
 
     const handleNext = () => {
         slideRef.current.swiper.slideNext();
@@ -94,7 +94,7 @@ export default function SteamGamesSwiper() {
                             </SwiperSlide>
                         ))
                     ) : (
-                        steamGames.slice(0, 12).map((game) => (
+                        steamGames?.map((game) => (
                             <SwiperSlide key={game.id}>
                                 <GameSlides game={game}/>
                             </SwiperSlide>
