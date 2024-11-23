@@ -1,35 +1,20 @@
 import { IoIosSearch } from "react-icons/io";
 import { searchQuery } from '../api/api';
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import SearchFilterResults from "./SearchFilterResults";
 import SkeletonSearchFilter from "./Skeleton/SkeletonSearchFilter";
 import PropTypes from 'prop-types';
 
 export default function MobileSearchGames({ handleCloseSearch }) {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        async function searchGames(){
-            try {
-                setIsLoading(true);
-                const { results } = await searchQuery(query);
-                setResults(results || []);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error fetching data', error)
-            }
-        }
-
-        if(query){
-            searchGames();
-        } else {
-            setResults([])
-        }
-
-    }, [query])
-
+    const { data, isLoading, error} = useQuery({
+        queryKey: ['searchData', query],
+        queryFn: () => searchQuery(query),
+        enabled: !!query
+    })
+   
 
     return (
         <div className='fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.9)] px-4 py-4'>
@@ -53,18 +38,16 @@ export default function MobileSearchGames({ handleCloseSearch }) {
                     Cancel
                 </span>
             </div>
-            {isLoading ? (
-                query && (
-                    <div className='scrollbar-hide w-full h-[500px] overflow-y-auto mt-4 px-4'>
+            {query && (
+                <div className='scrollbar-hide w-full h-[500px] overflow-y-auto mt-4 px-4'>
+                    {error ? (
+                        <div>Error fetching results: {error.message}</div>
+                    ) : isLoading ? (
                         <SkeletonSearchFilter/>
-                    </div>
-                )
-            ) : (
-                query && (
-                    <div className="scrollbar-hide w-full h-[500px] overflow-y-auto mt-4 px-4">
-                        <SearchFilterResults results={results}/>
-                    </div>
-                )
+                    ): (
+                        <SearchFilterResults results={data}/>
+                    )}
+                </div>
             )}
         </div>
     )
