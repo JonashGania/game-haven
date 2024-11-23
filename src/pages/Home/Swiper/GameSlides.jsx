@@ -27,11 +27,11 @@ export default function GameSlides({game}) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <Link to={`/browse/${primaryGenre}/${game.slug}`} className='relative max-h-[300px] h-full mobile:max-h-[241.03px] tablet:max-h-[158.98px]'>
+                <Link to={`/browse/${primaryGenre}/${game.slug}`} className='h-auto relative'>
                     <img 
                         src={game.background_image}
                         alt={`${game.slug} image`} 
-                        className='w-full h-full max-h-full object-cover rounded-md group' 
+                        className='w-full max-h-[300px] h-auto mobile:max-h-[197px] tablet:max-h-[160px] min-h-[160px] object-cover rounded-md group' 
                     />
                     <div className='absolute inset-0 w-full max-h-[341.44] mobile:max-h-[241.03px] tablet:max-h-[158.98px] rounded-md bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-100 ease-in'></div>
                 </Link>
