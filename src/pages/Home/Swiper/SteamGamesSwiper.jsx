@@ -1,5 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
-import { getStoreTopGames } from '../../../api/api';
+import {useState, useRef} from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
@@ -9,28 +8,11 @@ import SkeletonSlides from '../Skeleton/SkeletonSlides';
 import 'swiper/css';
 
 export default function SteamGamesSwiper({ steamGames, isLoading }) {
-    // const [steamGames, setSteamGames] = useState([]);
-    // const [isLoading, setIsLoading] = useState(true);
     const [slide, setSlide] = useState({
         isFirst: true,
         isLast: false,
     })
     const slideRef = useRef();
-
-    // useEffect(() => {
-    //     const loadSteamGames = async () => {
-    //         try {
-    //             const games = await getStoreTopGames(1, 12);
-    //             setSteamGames(games);
-    //         } catch (error) {
-    //             console.error('Failed to fetch games', error);
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     }
-
-    //     loadSteamGames();
-    // }, [])
 
     const handleNext = () => {
         slideRef.current.swiper.slideNext();

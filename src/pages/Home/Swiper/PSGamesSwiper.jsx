@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
-import { getStoreTopGames } from '../../../api/api';
+import { useState, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
@@ -8,27 +7,11 @@ import SkeletonSlides from '../Skeleton/SkeletonSlides';
 import 'swiper/css';
 
 export default function PSGamesSwiper({ psGames, isLoading }) {
-  // const [psGames, setPsGames] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const [slide, setSlide] = useState({
     isFirst: true,
     isLast: false,
   })
   const slideRef = useRef();
-
-  // useEffect(() => {
-  //   const loadPsGames = async() => {
-  //     try {
-  //       const games = await getStoreTopGames(3, 12);
-  //       setPsGames(games)
-  //     } catch (error) {
-  //       console.error('Failed to fetch games', error)
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  //   loadPsGames();
-  // }, [])
 
   const handleNext = () => {
     slideRef.current.swiper.slideNext();
