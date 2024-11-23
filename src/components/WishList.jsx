@@ -1,5 +1,4 @@
 import { useWishlist } from '../context/WishlistContext'
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function WishList({ isOpen, onClose }) {
@@ -30,8 +29,7 @@ export default function WishList({ isOpen, onClose }) {
 
                 <ul className='pt-4 flex flex-col gap-4'>
                     {Object.values(wishlist).map((game) => (
-                        <Link 
-                            to={`/browse/${game.genres[0].slug}/${game.id}`} 
+                        <li 
                             key={game.id} 
                             className='flex items-center mobile:gap-4 gap-2 py-2 px-2 bg-[rgb(54,54,54)] rounded-md'
                         >
@@ -53,7 +51,7 @@ export default function WishList({ isOpen, onClose }) {
                                     Remove
                                 </h3>
                             </div>
-                        </Link>
+                        </li>
                     ))}
                 </ul>
             </div>
