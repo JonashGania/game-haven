@@ -3,7 +3,7 @@ import { IoIosAddCircle, IoIosCheckmarkCircle } from "react-icons/io";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { format, isValid, parseISO } from "date-fns";
 import { useWishlist } from '../../context/WishlistContext';
 import { useQuery } from '@tanstack/react-query';
@@ -33,12 +33,13 @@ export default function GameDetailsPage() {
     const { data, isLoading, error } = useQuery({
         queryKey: ['gameDetails', gameSlug],
         queryFn: fetchGameDetails,
+        retry: false
     })
 
-    const gameInWishlist = Boolean(wishlist[data?.game.id]);
+    const gameInWishlist = data?.game && Boolean(wishlist[data.game.id]);
 
-    const releasedDate = isValid(new Date(data?.game.released))
-    ? format(parseISO(data?.game.released), "MM/dd/yyyy")
+    const releasedDate = data?.game && isValid(new Date(data.game.released))
+    ? format(parseISO(data.game.released), "MM/dd/yyyy")
     : 'N/A';
 
     const handleToggleWishlist = (game) => {
@@ -49,8 +50,12 @@ export default function GameDetailsPage() {
         }
     }
 
+    if (error) {
+        return (
+            <div>Error fetching results: {error.message}</div>
+        )
+    }
 
-    console.log(data?.game.description_raw);
     return (
         <div className='w-full min-h-screen bg-[rgb(18,18,18)] pb-32 overflow-hidden'>
             <div className='max-w-5xl mx-auto'>
@@ -65,11 +70,9 @@ export default function GameDetailsPage() {
                         <span className='text-neutral-400 font-semibold'>Back</span>
                     </button>
                 </div>
-                {error ? (
-                    <div>Error fetching results: {error.message}</div>
-                ) : isLoading ? (
+                {isLoading ? (
                     <SkeletonGameDetails />
-                ) : data && (
+                ) : data?.game && (
                     <div className='w-full px-4'>
                         <div className=''>
                             <h1 className='text-white text-xl mobile:text-3xl font-medium'>{data.game.name}</h1>
@@ -109,13 +112,13 @@ export default function GameDetailsPage() {
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Developer</span>
                                     {data.game.developers?.slice(0,1).map((name) => (
-                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis' key={name.id}>{name.name}</h3>
+                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis overflow-hidden' key={name.id}>{name.name}</h3>
                                     ))}
                                 </div>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
                                     <span className='text-neutral-400'>Publisher</span>
                                     {data.game.publishers?.slice(0,1).map((name) => (
-                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis' key={name.id}>{name.name}</h3>
+                                        <h3 className='text-neutral-200 text-sm whitespace-nowrap text-ellipsis overflow-hidden' key={name.id}>{name.name}</h3>
                                     ))}
                                 </div>
                                 <div className='w-full flex items-center justify-between gap-4 pb-1 border-b border-neutral-800'>
@@ -150,3 +153,14 @@ export default function GameDetailsPage() {
         </div>
     )
 }
+
+// : (
+//     <div className='w-full flex items-center justify-end flex-col'>
+//         <img src="/error.svg" alt="error" className=' pl-[100px]'/>
+//         <h1 className='text-neutral-400 text-xl pt-4'>No results found.</h1>
+//         <p className='text-neutral-400 text-xl pb-10'>
+//             Return to
+//             <Link to={'/'} className='font-semibold text-neutral-200'> Homepage</Link>
+//         </p>
+//     </div>
+// )
