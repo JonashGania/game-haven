@@ -24,7 +24,8 @@ const router = createBrowserRouter([
     path: '/browse/:genreName/:gameSlug',
     element: <GameDetailsPage />
   }
-])
+], { basename: import.meta.env.BASE_URL })
+
 
 const queryClient = new QueryClient({
   defaultOptions: {

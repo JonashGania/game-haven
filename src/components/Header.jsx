@@ -6,7 +6,7 @@ import SearchGames from './SearchBar'
 import WishList from './WishList';
 import Dropdown from './Dropdown';
 import MobileSearchGames from './MobileSearchGames';
-
+import logo from '/logo.svg';
 
 
 export default function Header() {
@@ -42,7 +42,7 @@ export default function Header() {
             <nav className='flex items-center justify-between gap-4 py-4 max-w-6xl mx-auto px-4'>
                 <div>
                     <Link to='/'>
-                        <img src="/logo.svg" alt="avatar"/>
+                        <img src={logo} alt="avatar"/>
                     </Link>
                 </div>
                 <SearchGames />

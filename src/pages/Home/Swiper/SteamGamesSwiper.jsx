@@ -4,6 +4,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
 import GameSlides from './GameSlides';
 import SkeletonSlides from '../Skeleton/SkeletonSlides';
+import steamLogo from '/steam.svg';
 
 import 'swiper/css';
 
@@ -33,7 +34,7 @@ export default function SteamGamesSwiper({ steamGames, isLoading }) {
         <div>
             <div className='w-full flex justify-between items-center pb-4'>
                 <div className='flex items-center gap-1'>
-                    <img src="/steam.svg" alt="steam logo" />
+                    <img src={steamLogo} alt="steam logo" />
                     <h2 className='text-white text-base mobile:text-xl pr-3 mobile:pr-7'>Steam</h2>
                     <a 
                         href="https://store.steampowered.com" 

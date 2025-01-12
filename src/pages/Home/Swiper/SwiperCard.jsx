@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../../context/WishlistContext';
 import PropTypes from 'prop-types';
+import add from '/add.svg';
+import check from '/check.svg';
 
 export default function SwiperCard({game}) {
     const primaryGenre = game.genres[0].slug;
@@ -36,12 +38,12 @@ export default function SwiperCard({game}) {
                 >   
                     {gameInWishlist ? (
                         <>
-                            <img src="/check.svg" alt="check" />
+                            <img src={add} alt="check" />
                             <p className='text-xs font-medium'>IN WISHLIST</p>
                         </>
                     ) : (
                         <>
-                             <img src="/add.svg" alt="add" />
+                             <img src={check} alt="add" />
                             <p className='text-xs font-medium'>ADD TO WISHLIST</p>
                         </>
                     )}

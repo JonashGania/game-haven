@@ -4,6 +4,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import PaginationButton from '../../../components/Pagination';
 import GameSlides from './GameSlides';
 import SkeletonSlides from '../Skeleton/SkeletonSlides';
+import xboxLogo from '/xbox.svg';
 
 import 'swiper/css';
 
@@ -33,7 +34,7 @@ export default function XboxGamesSwiper({ xboxGames, isLoading }) {
         <div>
             <div className='w-full flex justify-between items-center pb-4'>
                 <div className='flex items-center gap-1'>
-                    <img src="/xbox.svg" alt="xbox logo" />
+                    <img src={xboxLogo} alt="xbox logo" />
                     <h2 className='text-white text-base mobile:text-xl pr:5 mobile:pr-7'>Xbox</h2>
                     <a 
                         href="https://www.xbox.com/en-us/games?xr=shellnav" 

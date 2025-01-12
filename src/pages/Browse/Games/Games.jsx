@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../../context/WishlistContext';
+import add from '/add.svg';
+import check from '/check.svg';
 import PropTypes from 'prop-types';
 
 export default function Games({ game }) {
@@ -39,9 +41,9 @@ export default function Games({ game }) {
                         onClick={() => handleToggleWishlist(game)}
                     >   
                         {gameInWishlist ? (
-                            <img src="/check.svg" alt="check" />
+                            <img src={check} alt="check" />
                         ) : (
-                            <img src="/add.svg" alt="add" />
+                            <img src={add} alt="add" />
                         )}
                     </button>
                 )}
