@@ -25,7 +25,7 @@ export default function SwiperCard({game}) {
                 <img 
                     src={game.background_image} 
                     alt={`${game.name} background`} 
-                    className='rounded-2xl opacity-80 object-cover h-full max-h-[170px] mobile:max-h-[485px] w-full'
+                    className='rounded-2xl opacity-80 object-cover h-[230px] mobile:h-[300px] tablet:h-[380px] sidebar:h-[485px] w-full'
                 />
             </Link>
             <div className='absolute mobile:bottom-10 bottom-5 mobile:left-10 left-5 transition-all duration-200 ease-in'>
